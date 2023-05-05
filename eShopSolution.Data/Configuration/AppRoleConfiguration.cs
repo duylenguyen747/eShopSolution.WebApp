@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Data.Data
+namespace eShopSolution.Data.Configuration
 {
-	internal class DataContext
+	internal class AppRoleConfiguration
 	{
 	}
 }

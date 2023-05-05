@@ -4,14 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Data.Emuns
+namespace eShopSolution.Data.Configuration
 {
-	public enum OrderStatus
+	internal class SlideConfiguration
 	{
-		InProgress,
-		Confirmed,
-		Shipping,
-		Success,
-		Canceled
 	}
 }

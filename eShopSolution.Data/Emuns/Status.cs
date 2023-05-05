@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace eShopSolution.Data.Emuns
 {
-	internal class Status
+	public enum Status
 	{
+		InActive,
+		Active
 	}
 }
