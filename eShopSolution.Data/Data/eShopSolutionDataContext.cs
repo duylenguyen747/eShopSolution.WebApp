@@ -29,6 +29,8 @@ namespace eShopSolution.Data.Data
 			modelBuilder.ApplyConfiguration(new PromotionConfiguration());
 			modelBuilder.ApplyConfiguration(new TransactionConfiguration());
 
+			
+
 			base.OnModelCreating(modelBuilder);
 		}
 
