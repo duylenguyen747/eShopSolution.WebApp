@@ -16,6 +16,7 @@ namespace eShopSolution.Data.Data
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
+			modelBuilder.ApplyConfiguration(new AppUserConfiguration());
 			modelBuilder.ApplyConfiguration(new CartConfiguration());
 			modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 			modelBuilder.ApplyConfiguration(new ContactConfiguration());
@@ -27,6 +28,7 @@ namespace eShopSolution.Data.Data
 			modelBuilder.ApplyConfiguration(new ProductTranslationConfiguration());
 			modelBuilder.ApplyConfiguration(new PromotionConfiguration());
 			modelBuilder.ApplyConfiguration(new TransactionConfiguration());
+
 			base.OnModelCreating(modelBuilder);
 		}
 
@@ -44,5 +46,9 @@ namespace eShopSolution.Data.Data
 		public DbSet<ProductTranslation> productsTranslation { get; set; }
 		public DbSet<Promotion> promotion { get; set; }
 		public DbSet<Transaction> transactions { get; set; }
+		public DbSet<AppUser> appUsers { get; set; }
+		public DbSet<AppRole> appRoles { get; set; }
+		public DbSet<Slide> slides { get; set; }
+		public DbSet<ProductImages> productImages { get; set; }
 	}
 }

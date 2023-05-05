@@ -1,4 +1,0 @@
-{
-    "ConnectionStrings": {
-        "eShopSolutionDatabase": "Server=.; Database=eShopSolution;Integrated Security=true;"
-    }
