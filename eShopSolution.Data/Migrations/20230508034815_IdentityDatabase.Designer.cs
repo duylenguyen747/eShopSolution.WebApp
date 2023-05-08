@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopSolution.Data.Data;
 
@@ -11,9 +12,10 @@ using eShopSolution.Data.Data;
 namespace eShopSolution.Data.Migrations
 {
     [DbContext(typeof(eShopSolutionDataContext))]
-    partial class eShopSolutionDataContextModelSnapshot : ModelSnapshot
+    [Migration("20230508034815_IdentityDatabase")]
+    partial class IdentityDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,16 +78,6 @@ namespace eShopSolution.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("508dce46-e973-49c9-94a1-3b6172fd1664"),
-                            ConcurrencyStamp = "9428be1a-53c7-4a2b-8b4a-b949e6c260bc",
-                            Description = "Adminisrtrator role",
-                            Name = "Admin",
-                            NormalizedName = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.AppUser", b =>
@@ -152,27 +144,6 @@ namespace eShopSolution.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("d49f2b12-1d4a-4262-80da-405359c8bd3c"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a07a5f5e-a976-4bea-982c-99a7d35ba589",
-                            Dob = new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "duylenguyen747@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Nguyen",
-                            LastName = "Duy",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "duylenguyen747@gmail.com",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK1LE42d94Sm7woTPy4oNmB3QTtiGG3Zt/khZm5QPcXJPrjbZOyiI+lAfLkafL82zw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.Cart", b =>
@@ -507,7 +478,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 5, 8, 11, 10, 6, 286, DateTimeKind.Local).AddTicks(7399),
+                            DateCreated = new DateTime(2023, 5, 8, 10, 48, 14, 973, DateTimeKind.Local).AddTicks(7751),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -853,13 +824,6 @@ namespace eShopSolution.Data.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.ToTable("AppUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("d49f2b12-1d4a-4262-80da-405359c8bd3c"),
-                            RoleId = new Guid("508dce46-e973-49c9-94a1-3b6172fd1664")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
