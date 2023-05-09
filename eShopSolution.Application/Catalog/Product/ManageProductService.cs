@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using eShopSolution.Application.Common;
+using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.Data.SqlClient;
 
 namespace eShopSolution.Application.Catalog.Product
 {
@@ -55,7 +57,7 @@ namespace eShopSolution.Application.Catalog.Product
 					}
 				}
 			};
-
+			// Save Image
 			if(request.ThumbnailImage != null)
 			{
 				product.ProductImage = new List<ProductImage>()
@@ -84,12 +86,6 @@ namespace eShopSolution.Application.Catalog.Product
 			_context.Products.Remove(product);
 			return await _context.SaveChangesAsync();
 		}
-
-		public Task<List<ProductViewModel>> GetAll()
-		{
-			throw new NotImplementedException();
-		}
-
 
 		public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
 		{
@@ -147,6 +143,17 @@ namespace eShopSolution.Application.Catalog.Product
 			productTranslation.SeoTitle = request.SeoTitle;
 			productTranslation.SeoAlias = request.SeoAlias;
 			productTranslation.Details = request.Details;
+
+			if (request.ThumbnailImage != null)
+			{
+				var thumbnailImage = await _context.productImages.FirstOrDefaultAsync(i => i.IsDefault == true && i.ProductId == request.Id);
+				if(thumbnailImage != null)
+				{
+					thumbnailImage.FileSize = request.ThumbnailImage.Length;
+					thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
+					_context.productImages.Update(thumbnailImage);
+				}
+			}
 			return await _context.SaveChangesAsync();
 		}
 
