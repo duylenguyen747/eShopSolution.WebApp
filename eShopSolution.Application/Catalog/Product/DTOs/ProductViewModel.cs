@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application.Catalog.Product.DTOs
+namespace eShopSolution.Application.Catalog.Product.Dtos
 {
     public class ProductViewModel
     {

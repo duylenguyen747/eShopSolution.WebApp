@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application.Catalog.Product.DTOs.Manage
+namespace eShopSolution.Application.Catalog.Product.Dtos.Manage
 {
     public class ProductUpdateRequest
     {
