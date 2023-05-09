@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopSolution.Data.Data;
 
@@ -11,9 +12,10 @@ using eShopSolution.Data.Data;
 namespace eShopSolution.Data.Migrations
 {
     [DbContext(typeof(eShopSolutionDataContext))]
-    partial class eShopSolutionDataContextModelSnapshot : ModelSnapshot
+    [Migration("20230509065252_AddProductImageTable")]
+    partial class AddProductImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,7 +83,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = new Guid("508dce46-e973-49c9-94a1-3b6172fd1664"),
-                            ConcurrencyStamp = "2382aecb-5310-425d-b301-a5088ba88517",
+                            ConcurrencyStamp = "4e206259-4e61-4a1a-a2ce-b528def8f9a9",
                             Description = "Adminisrtrator role",
                             Name = "Admin",
                             NormalizedName = "Admin"
@@ -158,7 +160,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("d49f2b12-1d4a-4262-80da-405359c8bd3c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e1c3d6b-a318-4b7d-9b2d-1a62b9971988",
+                            ConcurrencyStamp = "7828ca6c-4c5b-469d-bfee-d67cd2c869c0",
                             Dob = new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "duylenguyen747@gmail.com",
                             EmailConfirmed = true,
@@ -167,7 +169,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "duylenguyen747@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAELNZ/7rhw1EvCcZ6Pr/qno5qUffqFIz8Rg06JFVvVRNALkFynrk0eZSjRgEWDwAaFg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJIS0XQJhT2gMhUviy7bR0l63K2gjReOTLdT086J42Ube0e4xwNIBdIYjEKykiDwMw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -263,29 +265,23 @@ namespace eShopSolution.Data.Migrations
 
                     b.Property<string>("LanguageId")
                         .IsRequired()
-                        .HasMaxLength(5)
-                        .IsUnicode(false)
                         .HasColumnType("varchar(5)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SeoAlias")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SeoDescription")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SeoTitle")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -293,7 +289,7 @@ namespace eShopSolution.Data.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("CategoryTranslations", (string)null);
+                    b.ToTable("categoriesTranslation");
 
                     b.HasData(
                         new
@@ -513,7 +509,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 5, 9, 16, 4, 3, 423, DateTimeKind.Local).AddTicks(1262),
+                            DateCreated = new DateTime(2023, 5, 9, 13, 52, 51, 807, DateTimeKind.Local).AddTicks(6276),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -715,18 +711,15 @@ namespace eShopSolution.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
@@ -736,12 +729,11 @@ namespace eShopSolution.Data.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Slides", (string)null);
+                    b.ToTable("slides");
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.Transaction", b =>
