@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace eShopSolution.Application.Catalog.Product.DTOs.Manage
 {
-    public class ProductEditRequest
+    public class ProductUpdateRequest
     {
         public int Id { set; get; }
         public string Name { set; get; }

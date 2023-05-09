@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eShopSolution.Application.Catalog.Product.DTOs.Public
 {
-	internal class GetProductPagingRequest
+	internal class GetProducPagingRequest
 	{
 	}
 }

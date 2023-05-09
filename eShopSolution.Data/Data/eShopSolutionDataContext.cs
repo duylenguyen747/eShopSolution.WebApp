@@ -58,7 +58,7 @@ namespace eShopSolution.Data.Data
 		public DbSet<Language> languages { get; set; }
 		public DbSet<OrderDetail> ordersDetail { get; set; }
 		public DbSet<ProductTranslation> productsTranslation { get; set; }
-		public DbSet<ProductInCategory> productsInCategory { get; set; }
+		public DbSet<ProductInCategory> productsInCategories { get; set; }
 		public DbSet<Promotion> promotion { get; set; }
 		public DbSet<Transaction> transactions { get; set; }
 		public DbSet<AppUser> appUsers { get; set; }
