@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eShopSolution.ViewModels.Catalog.Product;
+using eShopSolution.ViewModels.Catalog.ProductImage;
 
 namespace eShopSolution.Application.Catalog.Product
 {
-	public class PublicProductService : IPublicProductService
+    public class PublicProductService : IPublicProductService
 	{
 		private readonly eShopSolutionDataContext _context;
 
