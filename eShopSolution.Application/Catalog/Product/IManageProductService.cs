@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using eShopSolution.ViewModels.Catalog.ProductImage;
 
 namespace eShopSolution.Application.Catalog.Product
 {
@@ -19,9 +20,9 @@ namespace eShopSolution.Application.Catalog.Product
 		Task<bool> UpdateStock(int productId, int addedQuantity);
 		Task AddViewCount(int productId);
 		Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request);
-		Task<int> AddImages(int  ProductId, List<IFormFile> files);
-		Task<int> UpdateImages(int imageId, string caption, bool Default);
-		Task<int> DeleteImages(int imageId);
+		Task<int> AddImage();
+		Task<int> UpdateImage(int imageId, ProductImageViewModel productImage);
+		Task<int> DeleteImage(int imageId);
 		Task<List<ProductImageViewModel>> GetListImage(int  productId);
 	}
 }

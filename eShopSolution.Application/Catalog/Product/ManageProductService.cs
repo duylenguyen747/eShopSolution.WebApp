@@ -13,10 +13,11 @@ using System.Net.Http.Headers;
 using eShopSolution.Application.Common;
 using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.Data.SqlClient;
+using eShopSolution.ViewModels.Catalog.ProductImage;
 
 namespace eShopSolution.Application.Catalog.Product
 {
-	public class ManageProductService : IManageProductService
+    public class ManageProductService : IManageProductService
 	{
 		private readonly eShopSolutionDataContext _context;
 		private readonly IStorageService _storageService;
@@ -24,11 +25,6 @@ namespace eShopSolution.Application.Catalog.Product
 		{
 			_context = context;
 			_storageService = storageService;
-		}
-
-		public async Task<int> AddImages(int ProductId, List<IFormFile> files)
-		{
-			throw new NotImplementedException();
 		}
 
 		public async Task AddViewCount(int ProductId)
@@ -97,10 +93,7 @@ namespace eShopSolution.Application.Catalog.Product
 			return await _context.SaveChangesAsync();
 		}
 
-		public Task<int> DeleteImages(int imageId)
-		{
-			throw new NotImplementedException();
-		}
+		
 
 		public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request)
 		{
@@ -200,11 +193,6 @@ namespace eShopSolution.Application.Catalog.Product
 				}
 			}
 			return await _context.SaveChangesAsync();
-		}
-
-		public Task<int> UpdateImages(int imageId, string caption, bool Default)
-		{
-			throw new NotImplementedException();
 		}
 
 		public async Task<bool> UpdatePrice(int ProductId, decimal newPrice)
