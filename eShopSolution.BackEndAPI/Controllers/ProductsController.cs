@@ -1,5 +1,6 @@
 ﻿using eShopSolution.Application.Catalog.Product;
 using eShopSolution.ViewModels.Catalog.Product;
+using eShopSolution.ViewModels.Catalog.ProductImage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,30 +12,33 @@ namespace eShopSolution.BackEndAPI.Controllers
 	{
 		private readonly IPublicProductService _publicProductService;
 		private readonly IManageProductService _manageProductService;
+
 		public ProductsController(IPublicProductService publicProductService, IManageProductService manageProductService)
 		{
 			_publicProductService = publicProductService;
 			_manageProductService = manageProductService;
 		}
+
 		[HttpGet("{productId}/{languageId}")]
 		public async Task<IActionResult> GetById(int productId, string languageId)
 		{
 			var product = await _manageProductService.GetById(productId, languageId);
-			if(product == null)
+			if (product == null)
 				return NotFound("Cannot fint product");
 			return Ok(product);
 		}
+
 		[HttpGet("Public-Paging/{languageId}")]
-		public async Task<IActionResult> GetAllPaging(string languageId,[FromQuery]GetPublicProducPagingRequest request)
+		public async Task<IActionResult> GetAllPaging(string languageId, [FromQuery] GetPublicProducPagingRequest request)
 		{
 			var products = await _publicProductService.GetAllByCategoryId(languageId, request);
 			return Ok(products);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create([FromForm]ProductCreateRequest request)
+		public async Task<IActionResult> Create([FromForm] ProductCreateRequest request)
 		{
-			if(!ModelState.IsValid)
+			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
@@ -43,8 +47,9 @@ namespace eShopSolution.BackEndAPI.Controllers
 				return BadRequest();
 
 			var product = await _manageProductService.GetById(productId, request.LanguageId);
-			return CreatedAtAction(nameof(GetById),new { id = productId}, productId);
+			return CreatedAtAction(nameof(GetById), new { id = productId }, productId);
 		}
+
 		[HttpPut]
 		public async Task<IActionResult> Update([FromForm] ProductUpdateRequest request)
 		{
@@ -57,6 +62,7 @@ namespace eShopSolution.BackEndAPI.Controllers
 				return BadRequest();
 			return Ok();
 		}
+
 		[HttpDelete("{productId}")]
 		public async Task<IActionResult> Delete(int productId)
 		{
@@ -65,13 +71,65 @@ namespace eShopSolution.BackEndAPI.Controllers
 				return BadRequest();
 			return Ok();
 		}
+
 		[HttpPatch("Price/{productId}/{newPrice}")]
-		public async Task<IActionResult> UpdatePrice(int productId, decimal newPrice )
+		public async Task<IActionResult> UpdatePrice(int productId, decimal newPrice)
 		{
 			var isSuccessful = await _manageProductService.UpdatePrice(productId, newPrice);
 			if (isSuccessful)
 				return Ok();
 			return Ok();
+		}
+
+		//Image
+		[HttpPost("{productId}/images")]
+		public async Task<IActionResult> CreateImage(int productId, [FromForm] ProductImageCreateRequest request)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+			var imageId = await _manageProductService.AddImage(productId, request);
+			if (imageId == 0)
+				return BadRequest();
+
+			var image = await _manageProductService.GetImageById(imageId);
+			return CreatedAtAction(nameof(GetImageById), new { id = imageId }, image);
+		}
+
+		[HttpPut("{productId}/images/{imageId}")]
+		public async Task<IActionResult> UpdateImage(int imageId, [FromForm] ProductImageUpdateRequest request)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+			var result = await _manageProductService.UpdateImage(imageId, request);
+			if (result == 0)
+				return BadRequest();
+			return Ok();
+		}
+
+		[HttpDelete("{productId}/images/{imageId}")]
+		public async Task<IActionResult> DeleteImage(int imageId)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+			var result = await _manageProductService.DeleteImage(imageId);
+			if (result == 0)
+				return BadRequest();
+			return Ok();
+		}
+
+		[HttpGet("{productId}/images/{imageId}")]
+		public async Task<IActionResult> GetImageById(int productId, int imageId)
+		{
+			var image = await _manageProductService.GetImageById(imageId);
+			if (image == null)
+				return NotFound("Cannot fint product");
+			return Ok(image);
 		}
 	}
 }

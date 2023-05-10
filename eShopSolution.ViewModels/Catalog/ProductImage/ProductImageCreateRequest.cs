@@ -9,8 +9,7 @@ namespace eShopSolution.ViewModels.Catalog.ProductImage
 {
 	public class ProductImageCreateRequest
 	{
-		public int ProductId { get; set; }
-
+		public int Id { get; set; }
 		public string Caption { get; set; }
 
 		public bool IsDefault { get; set; }

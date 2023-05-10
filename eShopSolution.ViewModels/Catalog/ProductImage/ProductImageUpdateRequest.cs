@@ -9,7 +9,6 @@ namespace eShopSolution.ViewModels.Catalog.ProductImage
 {
 	public class ProductImageUpdateRequest
 	{
-		public int Id { get; set; }
 		public string Caption { get; set; }
 
 		public bool IsDefault { get; set; }

@@ -1,5 +1,6 @@
 ﻿
 using eShopSolution.ViewModels.Catalog.Product;
+using eShopSolution.ViewModels.Catalog.ProductImage;
 using eShopSolution.ViewModels.Common;
 using System;
 using System.Collections.Generic;
