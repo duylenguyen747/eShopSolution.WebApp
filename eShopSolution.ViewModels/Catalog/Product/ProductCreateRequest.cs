@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ViewModels.Catalog.Product.Manage
+namespace eShopSolution.ViewModels.Catalog.Product
 {
     public class ProductCreateRequest
     {
@@ -16,7 +16,7 @@ namespace eShopSolution.ViewModels.Catalog.Product.Manage
         public string Description { get; set; }
         public string Details { get; set; }
         public string SeoDescription { get; set; }
-        public string SeoTitle { get; set;}
+        public string SeoTitle { get; set; }
         public string SeoAlias { get; set; }
         public string LanguageId { get; set; }
         public IFormFile ThumbnailImage { get; set; }

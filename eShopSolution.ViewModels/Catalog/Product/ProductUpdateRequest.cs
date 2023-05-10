@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ViewModels.Catalog.Product.Manage
+namespace eShopSolution.ViewModels.Catalog.Product
 {
     public class ProductUpdateRequest
     {
@@ -19,6 +19,6 @@ namespace eShopSolution.ViewModels.Catalog.Product.Manage
 
         public string SeoAlias { get; set; }
         public string LanguageId { set; get; }
-		public IFormFile ThumbnailImage { get; set; }
-	}
+        public IFormFile ThumbnailImage { get; set; }
+    }
 }

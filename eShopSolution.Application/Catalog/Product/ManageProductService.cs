@@ -6,7 +6,6 @@ using eShopSolution.Data.Data;
 using eShopSolution.Data.Entities;
 using eShopSolution.Utilities.Exceptions;
 using eShopSolution.ViewModels.Catalog.Product;
-using eShopSolution.ViewModels.Catalog.Product.Manage;
 using eShopSolution.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +16,7 @@ using Microsoft.Data.SqlClient;
 
 namespace eShopSolution.Application.Catalog.Product
 {
-	public class ManageProductService : IManageProductService
+    public class ManageProductService : IManageProductService
 	{
 		private readonly eShopSolutionDataContext _context;
 		private readonly IStorageService _storageService;
@@ -25,6 +24,11 @@ namespace eShopSolution.Application.Catalog.Product
 		{
 			_context = context;
 			_storageService = storageService;
+		}
+
+		public Task<int> AddImages(int ProductId, List<IFormFile> files)
+		{
+			throw new NotImplementedException();
 		}
 
 		public async Task AddViewCount(int ProductId)
@@ -83,11 +87,21 @@ namespace eShopSolution.Application.Catalog.Product
 			var product = await _context.Products.FindAsync(ProductId);
 			if (product == null) throw new eShopException($"Cannot find a product: {ProductId}");
 
+			var images = _context.productImages.Where(i => i.ProductId == ProductId);
+			foreach ( var image in images)
+			{
+				await _storageService.DeleteFileAsync(image.ImagePath); 
+			}
 			_context.Products.Remove(product);
 			return await _context.SaveChangesAsync();
 		}
 
-		public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
+		public Task<int> DeleteImages(int imageId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request)
 		{
 			var query = from p in _context.Products
 						join pt in _context.productsTranslation on p.Id equals pt.ProductId
@@ -131,6 +145,11 @@ namespace eShopSolution.Application.Catalog.Product
 			return pagedResult;
 		}
 
+		public Task<List<ProductImageViewModel>> GetListImage(int productId)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<int> Update(ProductUpdateRequest request)
 		{
 			var product = await _context.Products.FindAsync(request.Id);
@@ -155,6 +174,11 @@ namespace eShopSolution.Application.Catalog.Product
 				}
 			}
 			return await _context.SaveChangesAsync();
+		}
+
+		public Task<int> UpdateImages(int imageId, string caption, bool Default)
+		{
+			throw new NotImplementedException();
 		}
 
 		public async Task<bool> UpdatePrice(int ProductId, decimal newPrice)
