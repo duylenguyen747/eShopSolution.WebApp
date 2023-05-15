@@ -1,9 +1,11 @@
-﻿using eShopSolution.WebApp.Models;
+﻿using eShopSolution.AdminApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace eShopSolution.WebApp.Controllers
+namespace eShopSolution.AdminApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -15,7 +17,6 @@ namespace eShopSolution.WebApp.Controllers
 
         public IActionResult Index()
         {
-            var user = User.Identity.Name;
             return View();
         }
 
