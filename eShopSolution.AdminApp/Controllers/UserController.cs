@@ -28,7 +28,7 @@ namespace eShopSolution.AdminApp.Controllers
             var request = new GetUserPagingRequest()
             {
                 BearerToken = sessions,
-                Keyword = "a",
+                Keyword = keyword,
                 PageSize = pageSize,
                 PageIndex = pageIndex,
             };
@@ -67,6 +67,7 @@ namespace eShopSolution.AdminApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("Token");
             return RedirectToAction("Login", "User");
         }
 
