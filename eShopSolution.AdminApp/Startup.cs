@@ -23,8 +23,14 @@ namespace eShopSolution.AdminApp
                 options.AccessDeniedPath = "/User/Forbidden";
             });
 
-            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+            services.AddControllersWithViews()
+                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
             services.AddTransient<IUserApiClient, UserApiClient>();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
             IMvcBuilder builder = services.AddRazorPages();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 #if DEBUG
@@ -47,11 +53,13 @@ namespace eShopSolution.AdminApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseAuthentication();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
