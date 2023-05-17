@@ -32,7 +32,7 @@ namespace eShopSolution.AdminApp.Controllers
                 PageSize = pageSize,
                 PageIndex = pageIndex,
             };
-            var data = await _userApiClient.GetUserPaging(request);
+            var data = await _userApiClient.GetUsersPagings(request);
             return View(data);
         }
 

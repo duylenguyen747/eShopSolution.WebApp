@@ -59,8 +59,8 @@ namespace eShopSolution.AdminApp
             app.UseAuthentication();
 
             app.UseRouting();
-            app.UseSession();
             app.UseAuthorization();
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
