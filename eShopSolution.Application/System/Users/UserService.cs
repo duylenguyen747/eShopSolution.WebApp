@@ -68,7 +68,12 @@ namespace eShopSolution.Application.System.Users
             var query = _userManager.Users;
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.UserName.Contains(request.Keyword) || x.PhoneNumber.Contains(request.Keyword));
+                query = query.Where(x => x.UserName.Contains(request.Keyword)
+                || x.PhoneNumber.Contains(request.Keyword)
+                || x.Email.Contains(request.Keyword)
+                || x.Id.Equals(request.Keyword)
+                || x.FirstName.Equals(request.Keyword)
+                || x.LastName.Equals(request.Keyword));
             }
 
             int totalRow = await query.CountAsync();
@@ -77,11 +82,11 @@ namespace eShopSolution.Application.System.Users
                 .Select(x => new UserVm()
                 {
                     Email = x.Email,
+                    Id = x.Id,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    Id = x.Id,
-                    PhoneNumber = x.PhoneNumber,
                     UserName = x.UserName,
+                    PhoneNumber = x.PhoneNumber,
                 }).ToListAsync();
 
             var pagedResult = new PagedResult<UserVm>()
