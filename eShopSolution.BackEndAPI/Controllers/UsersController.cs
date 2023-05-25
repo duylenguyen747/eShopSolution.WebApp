@@ -25,13 +25,13 @@ namespace eShopSolution.BackEndAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var resultToken = await _userService.Authencate(request);
-            if (string.IsNullOrEmpty(resultToken.ResultObject))
+            var result = await _userService.Authencate(request);
+            if (string.IsNullOrEmpty(result.ResultObject))
             {
-                return BadRequest(resultToken);
+                return BadRequest(result);
             }
 
-            return Ok(resultToken);
+            return Ok(result);
         }
 
         [HttpPost]
@@ -44,7 +44,21 @@ namespace eShopSolution.BackEndAPI.Controllers
             var result = await _userService.Register(request);
             if (!result.IsSuccessed)
             {
-                return BadRequest("Register is unsuccessful!");
+                return BadRequest(result.Message);
+            }
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] RegisterRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Register(request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result.Message);
             }
             return Ok();
         }
