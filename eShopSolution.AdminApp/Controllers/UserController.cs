@@ -11,7 +11,7 @@ using System.Text;
 
 namespace eShopSolution.AdminApp.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserApiClient _userApiClient;
         private readonly IConfiguration _configuration;
@@ -27,7 +27,6 @@ namespace eShopSolution.AdminApp.Controllers
             var sessions = HttpContext.Session.GetString("Token");
             var request = new GetUserPagingRequest()
             {
-                BearerToken = sessions,
                 Keyword = keyword,
                 PageSize = pageSize,
                 PageIndex = pageIndex,
@@ -48,36 +47,29 @@ namespace eShopSolution.AdminApp.Controllers
             if (!ModelState.IsValid)
                 return View();
             var result = await _userApiClient.RegisterUser(request);
-            if (result)
+            if (result.IsSuccessed)
                 return RedirectToAction("Index");
+            ModelState.AddModelError("", result.Message);
+            return View(request);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(RegisterRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View();
+            var result = await _userApiClient.RegisterUser(request);
+            if (result.IsSuccessed)
+                return RedirectToAction("Index");
+            ModelState.AddModelError("", result.Message);
             return View(request);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Update(Guid id)
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginRequest request)
-        {
-            if (!ModelState.IsValid)
-                return View(ModelState);
-            var token = await _userApiClient.Authenticate(request);
-            var userPrincipal = this.ValidateToken(token);
-            var authProperties = new AuthenticationProperties
-            {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                IsPersistent = false
-            };
-            HttpContext.Session.SetString("Token", token);
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                userPrincipal,
-                authProperties);
-            return RedirectToAction("Index", "Home");
+            var user = await _userApiClient.GetById(id);
+            return View(user);
         }
 
         [HttpPost]
@@ -86,20 +78,6 @@ namespace eShopSolution.AdminApp.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Remove("Token");
             return RedirectToAction("Login", "User");
-        }
-
-        private ClaimsPrincipal ValidateToken(string jwtToken)
-        {
-            IdentityModelEventSource.ShowPII = true;
-            SecurityToken validatedToken;
-            TokenValidationParameters validationParameters = new TokenValidationParameters();
-            validationParameters.ValidateLifetime = true;
-
-            validationParameters.ValidAudience = _configuration["Tokens:Issuer"];
-            validationParameters.ValidIssuer = _configuration["Tokens:Issuer"];
-            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
-            ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
-            return principal;
         }
     }
 }

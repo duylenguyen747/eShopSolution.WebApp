@@ -3,6 +3,7 @@ using eShopSolution.Utilities.Exceptions;
 using eShopSolution.ViewModels.Catalog.ProductImage;
 using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.System.Users;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -60,6 +61,25 @@ namespace eShopSolution.Application.System.Users
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
             return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
+        }
+
+        public async Task<ApiResult<UserVm>> GetById(Guid id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                return new ApiErrorResult<UserVm>("User không tồn tại");
+            }
+            var userVm = new UserVm()
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Dob = user.Dob,
+                Id = id,
+                PhoneNumber = user.PhoneNumber,
+            };
+            return new ApiSuccessResult<UserVm>(userVm);
         }
 
         public async Task<ApiResult<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request)
@@ -122,6 +142,28 @@ namespace eShopSolution.Application.System.Users
                 return new ApiSuccessResult<bool>();
             }
             return new ApiErrorResult<bool>("Đăng ký không thành công");
+        }
+
+        public async Task<ApiResult<bool>> UpdateUser(Guid id, UserUpdateRequests request)
+        {
+            if (await _userManager.Users.AllAsync(x => x.Email == request.Email && x.Id != id))
+            {
+                return new ApiErrorResult<bool>("Email đã tồn tại");
+            }
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            user.Dob = request.Dob;
+            user.Email = request.Email;
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.PhoneNumber = request.PhoneNumber;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return new ApiSuccessResult<bool>();
+            }
+            return new ApiErrorResult<bool>("Cập nhật không thành công");
         }
     }
 }

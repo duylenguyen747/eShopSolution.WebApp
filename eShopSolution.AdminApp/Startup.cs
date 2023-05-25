@@ -19,7 +19,7 @@ namespace eShopSolution.AdminApp
             services.AddHttpClient();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
-                options.LoginPath = "/User/Login";
+                options.LoginPath = "/Login/Index";
                 options.AccessDeniedPath = "/User/Forbidden";
             });
 
@@ -30,7 +30,7 @@ namespace eShopSolution.AdminApp
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             IMvcBuilder builder = services.AddRazorPages();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 #if DEBUG

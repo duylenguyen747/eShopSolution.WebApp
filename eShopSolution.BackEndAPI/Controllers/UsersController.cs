@@ -49,13 +49,13 @@ namespace eShopSolution.BackEndAPI.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] RegisterRequest request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateRequests request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _userService.Register(request);
+            var result = await _userService.UpdateUser(id, request);
             if (!result.IsSuccessed)
             {
                 return BadRequest(result.Message);
@@ -68,6 +68,13 @@ namespace eShopSolution.BackEndAPI.Controllers
         {
             var products = await _userService.GetUsersPaging(request);
             return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var user = await _userService.GetById(id);
+            return Ok(user);
         }
     }
 }

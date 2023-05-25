@@ -16,6 +16,10 @@ namespace eShopSolution.Application.System.Users
 
         Task<ApiResult<bool>> Register(RegisterRequest request);
 
+        Task<ApiResult<bool>> UpdateUser(Guid id, UserUpdateRequests request);
+
         Task<ApiResult<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request);
+
+        Task<ApiResult<UserVm>> GetById(Guid id);
     }
 }
