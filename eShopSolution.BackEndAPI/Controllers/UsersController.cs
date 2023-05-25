@@ -26,9 +26,9 @@ namespace eShopSolution.BackEndAPI.Controllers
                 return BadRequest(ModelState);
 
             var resultToken = await _userService.Authencate(request);
-            if (string.IsNullOrEmpty(resultToken))
+            if (string.IsNullOrEmpty(resultToken.ResultObject))
             {
-                return BadRequest("UserName Or Password is incorrect!");
+                return BadRequest(resultToken);
             }
 
             return Ok(resultToken);
@@ -40,8 +40,9 @@ namespace eShopSolution.BackEndAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var result = await _userService.Register(request);
-            if (!result)
+            if (!result.IsSuccessed)
             {
                 return BadRequest("Register is unsuccessful!");
             }
