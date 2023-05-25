@@ -10,6 +10,8 @@ namespace eShopSolution.ViewModels.System.Users
 {
     public class UserUpdateRequests
     {
+        public Guid Id { get; set; }
+
         [Display(Name = "Họ")]
         public string FirstName { get; set; }
 

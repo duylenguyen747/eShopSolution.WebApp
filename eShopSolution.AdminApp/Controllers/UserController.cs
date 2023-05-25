@@ -54,11 +54,11 @@ namespace eShopSolution.AdminApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(RegisterRequest request)
+        public async Task<IActionResult> Update(UserUpdateRequests request)
         {
             if (!ModelState.IsValid)
                 return View();
-            var result = await _userApiClient.RegisterUser(request);
+            var result = await _userApiClient.UpdateUser(request.Id, request);
             if (result.IsSuccessed)
                 return RedirectToAction("Index");
             ModelState.AddModelError("", result.Message);
@@ -69,7 +69,7 @@ namespace eShopSolution.AdminApp.Controllers
         public async Task<IActionResult> Update(Guid id)
         {
             var user = await _userApiClient.GetById(id);
-            return View(user);
+            return View(user.ResultObject);
         }
 
         [HttpPost]
