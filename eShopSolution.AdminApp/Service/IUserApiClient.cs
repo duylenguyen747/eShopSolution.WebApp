@@ -7,7 +7,7 @@ namespace eShopSolution.AdminApp.Service
     {
         Task<ApiResult<string>> Authenticate(LoginRequest request);
 
-        Task<PagedResult<UserVm>> GetUsersPagings(GetUserPagingRequest request);
+        Task<ApiResult<PagedResult<UserVm>>> GetUsersPagings(GetUserPagingRequest request);
 
         Task<ApiResult<bool>> RegisterUser(RegisterRequest registerRequest);
 

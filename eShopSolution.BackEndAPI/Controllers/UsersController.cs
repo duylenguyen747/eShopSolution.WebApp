@@ -44,9 +44,9 @@ namespace eShopSolution.BackEndAPI.Controllers
             var result = await _userService.Register(request);
             if (!result.IsSuccessed)
             {
-                return BadRequest(result.Message);
+                return BadRequest(result);
             }
-            return Ok();
+            return Ok(result);
         }
 
         [HttpPut("{id}")]
@@ -58,9 +58,9 @@ namespace eShopSolution.BackEndAPI.Controllers
             var result = await _userService.UpdateUser(id, request);
             if (!result.IsSuccessed)
             {
-                return BadRequest(result.Message);
+                return BadRequest(result);
             }
-            return Ok();
+            return Ok(result);
         }
 
         [HttpGet("paging")]

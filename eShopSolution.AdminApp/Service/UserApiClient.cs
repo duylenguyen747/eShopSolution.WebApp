@@ -62,7 +62,7 @@ namespace eShopSolution.AdminApp.Service
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
             var response = await client.GetAsync($"/api/users/paging?pageIndex=" +
-                $"{request.PageIndex}&pageSize={request.PageSize}&keyword={request.Keyword}");
+                $"{request.PageIndex}&pageSize={request.PageSize}&keyword=a");
             var body = await response.Content.ReadAsStringAsync();
             var users = JsonConvert.DeserializeObject<ApiSuccessResult<PagedResult<UserVm>>>(body);
             return users;
@@ -101,11 +101,6 @@ namespace eShopSolution.AdminApp.Service
                 return JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(result);
 
             return JsonConvert.DeserializeObject<ApiErrorResult<bool>>(result);
-        }
-
-        Task<PagedResult<UserVm>> IUserApiClient.GetUsersPagings(GetUserPagingRequest request)
-        {
-            throw new NotImplementedException();
         }
     }
 }
