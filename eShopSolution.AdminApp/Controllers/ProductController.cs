@@ -20,6 +20,7 @@ namespace eShopSolution.AdminApp.Controllers
         public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
         {
             var languageId = HttpContext.Session.GetString(SystemConstants.Appsettings.DefaultLanguageId);
+
             var request = new GetManageProductPagingRequest()
             {
                 Keyword = keyword,
@@ -28,6 +29,7 @@ namespace eShopSolution.AdminApp.Controllers
                 LanguageId = languageId
             };
             var data = await _productApiClient.GetPagings(request);
+            ViewBag.Keyword = keyword;
             if (TempData["result"] != null)
             {
                 ViewBag.SuccessMsg = TempData["result"];

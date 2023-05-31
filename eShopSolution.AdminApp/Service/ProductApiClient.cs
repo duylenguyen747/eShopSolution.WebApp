@@ -17,8 +17,11 @@ namespace eShopSolution.AdminApp.Service
 
         public async Task<PagedResult<ProductVm>> GetPagings(GetManageProductPagingRequest request)
         {
-            var data = await GetAsync<PagedResult<ProductVm>>($"/api/products/paging?pageIndex=" +
-                $"{request.PageIndex}&pageSize={request.PageSize}&keyword=a&languageId={request.LanguageId}");
+            var data = await GetAsync<PagedResult<ProductVm>>
+                ($"/api/products/paging?pageIndex={request.PageIndex}" +
+                $"&pageSize={request.PageSize}" +
+                $"&keyword={request.Keyword}" +
+                $"&languageId={request.LanguageId}");
             return data;
         }
     }
