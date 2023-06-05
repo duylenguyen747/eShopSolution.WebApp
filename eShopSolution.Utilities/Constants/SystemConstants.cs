@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace eShopSolution.Utilities.Constants
+﻿namespace eShopSolution.Utilities.Constants
 {
     public class SystemConstants
     {
-        public const string MainConnectionString = "eShopSolutionDatabase";
+        public const string MainConnectionString = "eShopSolutionDb";
 
-        public class Appsettings
+        public class AppSettings
         {
             public const string DefaultLanguageId = "DefaultLanguageId";
             public const string Token = "Token";

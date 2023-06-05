@@ -38,19 +38,19 @@ namespace eShopSolution.AdminApp.Controllers
                 return View(ModelState);
 
             var result = await _userApiClient.Authenticate(request);
-            if (result.ResultObject == null)
+            if (result.ResultObj == null)
             {
                 ModelState.AddModelError("", result.Message);
                 return View();
             }
-            var userPrincipal = this.ValidateToken(result.ResultObject);
+            var userPrincipal = this.ValidateToken(result.ResultObj);
             var authProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
                 IsPersistent = false
             };
-            HttpContext.Session.SetString(SystemConstants.Appsettings.DefaultLanguageId, _configuration[SystemConstants.Appsettings.DefaultLanguageId]);
-            HttpContext.Session.SetString(SystemConstants.Appsettings.Token, result.ResultObject);
+            HttpContext.Session.SetString(SystemConstants.AppSettings.DefaultLanguageId, _configuration[SystemConstants.AppSettings.DefaultLanguageId]);
+            HttpContext.Session.SetString(SystemConstants.AppSettings.Token, result.ResultObj);
             await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         userPrincipal,

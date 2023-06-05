@@ -1,17 +1,17 @@
 ﻿using eShopSolution.AdminApp.Service;
 using eShopSolution.Utilities.Constants;
-using eShopSolution.ViewModels.Catalog.Product;
-using eShopSolution.ViewModels.System.Users;
+using eShopSolution.ViewModels.Catalog.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eShopSolution.AdminApp.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IConfiguration _configuration;
         private readonly IProductApiClient _productApiClient;
+        private readonly IConfiguration _configuration;
 
-        public ProductController(IConfiguration configuration, IProductApiClient productApiClient)
+        public ProductController(IProductApiClient productApiClient,
+            IConfiguration configuration)
         {
             _configuration = configuration;
             _productApiClient = productApiClient;
@@ -19,7 +19,7 @@ namespace eShopSolution.AdminApp.Controllers
 
         public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
         {
-            var languageId = HttpContext.Session.GetString(SystemConstants.Appsettings.DefaultLanguageId);
+            var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
 
             var request = new GetManageProductPagingRequest()
             {

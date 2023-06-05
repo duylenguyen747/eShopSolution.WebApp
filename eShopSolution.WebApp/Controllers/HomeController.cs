@@ -15,7 +15,6 @@ namespace eShopSolution.WebApp.Controllers
 
         public IActionResult Index()
         {
-            var user = User.Identity.Name;
             return View();
         }
 

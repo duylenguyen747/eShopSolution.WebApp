@@ -24,10 +24,10 @@ namespace eShopSolution.AdminApp.Service
             var sessions = _httpContextAccessor
                 .HttpContext
                 .Session
-                .GetString(SystemConstants.Appsettings.Token);
+                .GetString(SystemConstants.AppSettings.Token);
 
             var client = _httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri(_configuration[SystemConstants.Appsettings.BaseAddress]);
+            client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.BaseAddress]);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
             var response = await client.GetAsync(url);
             var body = await response.Content.ReadAsStringAsync();

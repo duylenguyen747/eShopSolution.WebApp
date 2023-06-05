@@ -1,6 +1,5 @@
-﻿using eShopSolution.ViewModels.Catalog.Product;
+﻿using eShopSolution.ViewModels.Catalog.Products;
 using eShopSolution.ViewModels.Common;
-using eShopSolution.ViewModels.System.Users;
 
 namespace eShopSolution.AdminApp.Service
 {
