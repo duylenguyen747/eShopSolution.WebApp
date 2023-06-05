@@ -2,7 +2,7 @@
 {
     public class SystemConstants
     {
-        public const string MainConnectionString = "eShopSolutionDb";
+        public const string MainConnectionString = "eShopSolutionDatabase";
 
         public class AppSettings
         {

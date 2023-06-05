@@ -1,3 +1,6 @@
+using eShopSolution.ViewModels.Common;
+using eShopSolution.ViewModels.System.Languages;
+
 namespace eShopSolution.AdminApp.Models
 {
     public class ErrorViewModel
